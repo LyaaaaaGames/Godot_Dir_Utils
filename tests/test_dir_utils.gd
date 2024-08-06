@@ -18,7 +18,7 @@
 #--
 #--  - 10/10/2023 Lyaaaaa
 #--    - Upgraded to Godot4
-#--    - Replaced dir_util var by call of Dir_Utils directly.
+#--    - Replaced dir_util var by call of Dir_Utils directly. 
 #--    - test_create_dir_recursive calls Dir_Utils's delete instead of DirAccess
 #--        remove.
 #--
