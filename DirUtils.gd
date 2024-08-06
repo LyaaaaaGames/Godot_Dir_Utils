@@ -13,90 +13,8 @@
 #--  - All the path have to be absolute (res:// and user:// work though)!
 #--
 #-- Changelog:
-#--  - 26/11/2021 Lyaaaaa
-#--    - Created the file
-#--
-#--  - 09/12/2021 Lyaaaaa
-#--    - Updated get_files_names to choose if it must include the files' extensions
-#--    - Added rename_file function.
-#--
-#--  - 20/12/2021 Lyaaaaa
-#--    - Added get_folders_names function.
-#--
-#--  - 23/12/2021 Lyaaaaa
-#--    - Updated rename_file to add a new parameter "p_create_path" to  call
-#--        create_dir_recursive from it.
-#--    - Created an alias method named cut_file, it just calls rename_file.
-#--    - Added create_dir_recursive method.
-#--
-#--  - 25/12/2021 Lyaaaaa
-#--    - Added globalize_res_path function.
-#--
-#--  - 10/02/2022 Lyaaaaa
-#--    - Replaced print by push_warning.
-#--
-#--  - 28/02/2022 Lyaaaaa
-#--    - Added delete_dir method which deletes the files in a folder, then the folder.
-#--
-#--  - 21/03/2022 Lyaaaaa
-#--    - Updated globalize_res_path to work with "user://" paths.
-#--
-#--  - 06/11/2022 Lyaaaaa
-#--    - Replaced push_warning by GlobalVariables.warning.
-#--
-#--  - 30/11/2022 Lyaaaaa
-#--    - globalize_res_path is now a static method cuz why not.
-#--
-#--  - 15/09/2023 Lyaaaaa
-#--    - Updated rename_file to log info even when it works.
-#--
-#--  - 09/10/2023 Lyaaaaa
-#--    - Upgrade to godot 4
-#--    - create_dir_recursive, cut_file and rename_file now are static and use
-#--        the static methods of DirAccess (which require absolute path!!)
-#--
-#--  - 10/10/2023 Lyaaaaa
-#--    - get_folders_names and get_files_names (all functions) are now static.
-#--
-#--  - 12/10/2023 Lyaaaaa
-#--    - Updated delete and delete_dir to become static.
-#--    - Delete now uses delete_absolute making it possible to be static.
-#--        DirAccess statics functions only work with absolute path but res://
-#--        and user:// work too!
-#--
-#--  - 16/10/2023 Lyaaaaa
-#--    - Fixed error when calling methods of mother class. Since everything
-#--        is static it requires to specify the class of the methods.
-#--    - Updated cut_file to correctly check if the file to move exist and if
-#--        the new destination exist.
-#--    - Updated delete_dir to give the proper path (not only the files name)
-#--        of the files to remove inside the folder to remove.
-#--
-#--  08/11/2023 Lyaaaaa
-#--    - Added get_folder_size method.
-#--
-#--  13/11/2023 Lyaaaaa
-#--    - Fixed a typo in get_folders_names when it was failing.
-#--    - Updated delete_dir to use path_join to be more efficient.
-#--    - Updated rename_file to replace the word "copied" by "moved" in the logs.
-#--    - Updated get_folder_size to just return 0 if the folder doesn't exist.
-#--
-#--  07/12/2023 Lyaaaaa
-#--    - Replaced all the globalvariable.warning call for push_warning or push_error.
-#--    - Added is_empty static func.
-#--
-#--  14/12/2023 Lyaaaaa
-#--    - Updated error message in rename_file.
-#--
-#--  - 03/01/2024 Lyaaaaa
-#--    - Added get_file_name_with_extension, get_file_name and get_extension_with_dot
-#--        static methods.
-#--
-#--  - 04/01/2024 Lyaaaaa
-#--    - Added remove_extension which is a simple alias of get_file_name.
-#--
-#--  - 07/02/2024 Lyaaaaa
-#--    - Added copy_file method.
+#--  - 06/08/2024 Lyaaaaa
+#--    - Renamed cut_file into move_file to be more explicit.
 #------------------------------------------------------------------------------
 @tool
 class_name Dir_Utils
@@ -190,9 +108,9 @@ static func rename_file(p_from        : String,
         return false
 
 
-static func cut_file(p_from        : String,
-                     p_to          : String,
-                     p_create_path : bool = true) -> bool:
+static func move_file(p_from        : String,
+                      p_to          : String,
+                      p_create_path : bool = true) -> bool:
     # This method is just an alias. Because 'cut' sounds more explicit than
     #   'rename'. It also has more debug info.
     if FileAccess.file_exists(p_from):
@@ -295,3 +213,4 @@ static func copy_file(p_from_absolute : String, p_to_absolute : String) -> bool:
         message += " Error : " + str(error)
         push_error(message)
         return false
+
