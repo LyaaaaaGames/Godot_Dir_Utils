@@ -18,7 +18,7 @@
 #--
 #--  - 10/10/2023 Lyaaaaa
 #--    - Upgraded to Godot4
-#--    - Replaced dir_util var by call of Dir_Utils directly. 
+#--    - Replaced dir_util var by call of Dir_Utils directly.
 #--    - test_create_dir_recursive calls Dir_Utils's delete instead of DirAccess
 #--        remove.
 #--
@@ -35,6 +35,11 @@
 #--
 #--  - 06/08/2024 Lyaaaaa
 #--    - Renamed cut_file into move_file.
+#--
+#--  - 07/08/2024 Lyaaaaa
+#--    - Updated test_delete to delete all the files declared in files
+#--        (forgot to update it when added a fourth file in files var).
+#--    - Updated test_get_folder_size to correctly do its job and to clean his mess.
 #------------------------------------------------------------------------------
 extends GutTest
 
@@ -96,6 +101,7 @@ func test_delete():
 
     Dir_Utils.delete(test_folder + sub_folders[0] + files[1])
     Dir_Utils.delete(test_folder + sub_folders[0] + files[2])
+    Dir_Utils.delete(test_folder + sub_folders[0] + files[3])
 
     result = Dir_Utils.delete((test_folder + sub_folders[0]))
     assert_true(result, "Did delete return true for deleting a folder.")
@@ -167,7 +173,7 @@ func test_delete_dir():
 
 
 func test_get_folder_size():
-    var size = Dir_Utils.get_folder_size(test_folder)
+    var size = Dir_Utils.get_folder_size(test_folder + sub_folders[0])
     var msg = "get folder size returns an int"
     assert_typeof(size, TYPE_INT, msg)
 
@@ -183,6 +189,8 @@ func test_is_empty() -> void:
     Dir_Utils.create_dir_recursive(path)
     assert_true(Dir_Utils.is_empty(path))
     assert_false(Dir_Utils.is_empty(test_folder.path_join(sub_folders[0])))
+
+    Dir_Utils.delete_dir(path)
 
 
 func test_get_file_name_with_extension() -> void:
