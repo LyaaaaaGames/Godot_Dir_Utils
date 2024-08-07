@@ -17,10 +17,12 @@
 #--  - 06/08/2024 Lyaaaaa
 #--    - Renamed cut_file into move_file to be more explicit.
 #--
+#--  - 07/08/2024 Lyaaaaa
+#--    - Now extends EditorPlugin.
 #------------------------------------------------------------------------------
 @tool
 class_name Dir_Utils
-extends DirAccess
+extends EditorPlugin
 
 static func get_files_names(p_path_to_folder : String,
                             p_get_extension  : bool = true) -> PackedStringArray:

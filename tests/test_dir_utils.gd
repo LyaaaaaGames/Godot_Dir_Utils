@@ -40,6 +40,7 @@
 #--    - Updated test_delete to delete all the files declared in files
 #--        (forgot to update it when added a fourth file in files var).
 #--    - Updated test_get_folder_size to correctly do its job and to clean his mess.
+#--    - Updated test_copy_file to clean afterwards.
 #------------------------------------------------------------------------------
 extends GutTest
 
@@ -232,3 +233,5 @@ func test_copy_file() -> void:
 
     var destination_file := FileAccess.open(destination, FileAccess.READ)
     assert_eq(destination_file.get_as_text(), "content")
+
+    Dir_Utils.delete(destination)
