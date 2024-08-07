@@ -8,6 +8,7 @@
 #--
 #-- Anticipated changes:
 #--  - Rewrite get_files_names to use the very simple get_files_at method.
+#--  - Update delete_dir to call delete_dir if it finds a dir inside the path.
 #--
 #-- Portability issue:
 #--  - All the path have to be absolute (res:// and user:// work though)!
@@ -15,6 +16,7 @@
 #-- Changelog:
 #--  - 06/08/2024 Lyaaaaa
 #--    - Renamed cut_file into move_file to be more explicit.
+#--
 #------------------------------------------------------------------------------
 @tool
 class_name Dir_Utils
